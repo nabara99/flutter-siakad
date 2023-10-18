@@ -7,6 +7,7 @@ import 'package:flutter_siakad_app/pages/mahasiswa/mahasiswa_page.dart';
 import '../../../common/constants/colors.dart';
 import '../../../common/widgets/buttons.dart';
 import '../../../common/widgets/custom_text_field.dart';
+import '../../../data/datasources/auth_local_datasource.dart';
 import '../../../data/models/request/auth_request_model.dart';
 
 class LoginBottomSheet extends StatefulWidget {
@@ -97,6 +98,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                     state.maybeWhen(
                       orElse: () {},
                       loaded: (data) {
+                        AuthLocalDatasource().saveAuthData(data);
                         if (data.user.roles == 'mahasiswa') {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_siakad_app/bloc/logout/logout_bloc.dart';
 
+import '../../data/datasources/auth_local_datasource.dart';
 import '../auth/auth_page.dart';
 
 class SettingPage extends StatefulWidget {
@@ -13,14 +16,49 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return const AuthPage();
-            }));
+      child: BlocProvider(
+        create: (context) => LogoutBloc(),
+        child: BlocConsumer<LogoutBloc, LogoutState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              orElse: () {},
+              loaded: () {
+                AuthLocalDatasource().removeAuthData();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const AuthPage();
+                  }),
+                );
+              },
+              error: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('logout error'),
+                  ),
+                );
+              },
+            );
           },
-          child: const Text('logout')),
+          builder: (context, state) {
+            return state.maybeWhen(
+              orElse: () {
+                return ElevatedButton(
+                  onPressed: () {
+                    context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                  },
+                  child: const Text('Logout'),
+                );
+              },
+              loaded: () {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }
