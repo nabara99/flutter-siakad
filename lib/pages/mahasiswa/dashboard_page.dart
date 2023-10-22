@@ -4,6 +4,10 @@ import '../../common/constants/colors.dart';
 import '../../common/constants/images.dart';
 import '../../common/widgets/menu_card.dart';
 import '../../common/widgets/search_input.dart';
+import 'absensi_page.dart';
+import 'jadwal_matkul_page.dart';
+import 'khs_page.dart';
+import 'nilai_mk_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -35,10 +39,10 @@ class _DashboardPageState extends State<DashboardPage> {
               children: [
                 IconButton(
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) {
-                    // return const AbsensiPage();
-                    // }));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const AbsensiPage();
+                    }));
                   },
                   icon: const Icon(
                     Icons.qr_code_scanner,
@@ -65,9 +69,9 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Kartu Hasil\nStudi',
           backgroundColor: const Color(0xff686BFF),
           onPressed: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            // return const KhsPage();
-            // }));
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const KhsPage();
+            }));
           },
           imagePath: Images.khs,
         ),
@@ -76,9 +80,9 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Nilai\nMata Kuliah',
           backgroundColor: const Color(0xffFFB023),
           onPressed: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            // return const NilaiMkPage();
-            // }));
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const NilaiMkPage();
+            }));
           },
           imagePath: Images.nMatkul,
         ),
@@ -87,9 +91,9 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Jadwal\nMata Kuliah',
           backgroundColor: const Color(0xffFF68F0),
           onPressed: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //   return const SchedulesPage();
-            // }));
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const JadwalMatkulPage();
+            }));
           },
           imagePath: Images.jadwal,
         ),

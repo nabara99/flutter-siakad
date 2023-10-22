@@ -112,16 +112,27 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                         }
                       },
                       error: (message) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Error'),
-                              content: Text(message),
-                            );
-                          },
-                        );
+                        Navigator.pop(context); // Tutup modal terlebih dahulu
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: ColorName.black,
+                              content: Text('Error - $message'),
+                            ),
+                          );
+                        });
                       },
+                      // error: (message) {
+                      //   showDialog(
+                      //     context: context,
+                      //     builder: (context) {
+                      //       return AlertDialog(
+                      //         title: const Text('Error'),
+                      //         content: Text(message),
+                      //       );
+                      //     },
+                      //   );
+                      // },
                     );
                   },
                   child: BlocBuilder<LoginBloc, LoginState>(
